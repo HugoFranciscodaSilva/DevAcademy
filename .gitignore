@@ -1,6 +1,7 @@
 backend/node_modules
 backend/.env
 backend/src/generated
+backend/dist
 
 frontend/node_modules
 frontend/.next

@@ -1,0 +1,26 @@
+constructor(private prisma:PrismaService){}
+
+  async create(data):Promise<>{
+    return this.prisma.create({data})
+  }
+
+  async getAll():Promise<[]>{
+    return this.prisma.findMany()
+  }
+
+  async getById(id:string):Promise<>{
+    return this.prisma.findUnique({where:{id}})
+  }
+
+  async update(id:string,data):Promise<>{
+    const found = await this.prisma.findUnique({where:{id}})
+    if(!found) throw new NotFoundException(`Não foi encontrado um com o id ${id}`)
+    return this.prisma.update({
+      where:{id},
+      data
+    })
+  }
+
+  async delete(id:string):Promise<void>{
+    await this.prisma.delete({where:{id}})
+  }
