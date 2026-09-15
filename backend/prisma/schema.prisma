@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User{
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  createCourse Course[]
+  enrollments Enrollment[] 
+  role Role @default(Student)
+
+  @@map("users")
+}
+
+model Course{
+  id String @id @default(uuid())
+  name String
+  cape String
+  description String
+  creatorId String
+  creator User @relation(references: [id],fields: [creatorId])
+  Modules Module[]
+  enrollments Enrollment[]
+
+  @@map("courses")
+}
+
+model Module{
+  id String @id @default(uuid())
+  name String
+  courseId String
+  course Course @relation(references: [id],fields: [courseId])
+  Lessons Lesson[]
+
+  @@map("modules")
+}
+
+model Lesson{
+  id String @id @default(uuid())
+  name String
+  order Int
+  urlVideo String
+  urlThumbnail String
+  moduleId String
+  module Module @relation(references: [id],fields: [moduleId])
+
+  @@map("lessons")
+}
+
+model Enrollment{
+  id String @id @default(uuid())
+  courseId String
+  course Course @relation(fields: [courseId],references: [id])
+  studentId String
+  student User @relation(fields: [studentId],references: [id])
+
+  @@map("enrollments")
+}
+
+enum Role{
+  Student
+  Instructor
+}
