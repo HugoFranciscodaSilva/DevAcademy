@@ -24,7 +24,7 @@ export class CoursesController {
   }
 
   @Patch(':id')
-  async updateCourse(@Param('id') id:string,data:UpdateCourseDto):Promise<Course>{
+  async updateCourse(@Param('id') id:string,@Body() data:UpdateCourseDto):Promise<Course>{
     return this.coursesService.updateCourse(id,data)
   }
 
