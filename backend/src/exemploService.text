@@ -9,7 +9,9 @@ constructor(private prisma:PrismaService){}
   }
 
   async getById(id:string):Promise<>{
-    return this.prisma.findUnique({where:{id}})
+    const found = await this.prisma.findUnique({where:{id}})
+    if(!found) throw new NotFoundException(`Não foi encontrado um com o id ${id}`)
+    return found
   }
 
   async update(id:string,data):Promise<>{
@@ -22,5 +24,7 @@ constructor(private prisma:PrismaService){}
   }
 
   async delete(id:string):Promise<void>{
+    const found = await this.prisma.findUnique({where:{id}})
+    if(!found) throw new NotFoundException(`Não foi encontrado um com o id ${id}`)
     await this.prisma.delete({where:{id}})
   }
