@@ -4,11 +4,13 @@ import { UpdateEnrollmentDto } from './dto/update-enrollment.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { Enrollment } from '../generated/prisma/client.js';
 
+export type CreateEnrollmentInput = CreateEnrollmentDto & {studentId:string}
+
 @Injectable()
 export class EnrollmentsService {
   constructor(private prisma:PrismaService){}
 
-  async createEnrollment(data:CreateEnrollmentDto):Promise<Enrollment>{
+  async createEnrollment(data:CreateEnrollmentInput):Promise<Enrollment>{
     return this.prisma.enrollment.create({data})
   }
 
