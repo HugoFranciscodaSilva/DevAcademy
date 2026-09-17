@@ -5,8 +5,6 @@ import { UpdateUserDto } from './dto/update-user.dto.js';
 import { User } from '../generated/prisma/client.js';
 import { GetUserDTO } from './dto/get-user.dto.js';
 import { JwtAuthGuard } from '../auth/auth.guard.js';
-import { currentUser } from '../auth/current-user.decorator.js';
-import type { AuthenticatedUser } from '../auth/dto/auth.dto.js';
 
 @Controller('users')
 export class UsersController {
