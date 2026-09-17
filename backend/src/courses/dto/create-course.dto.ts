@@ -12,8 +12,4 @@ export class CreateCourseDto {
     @IsString({message:"A descrição do curso deve ser string!"})
     @IsNotEmpty({message:"A descrição do curso não pode ser vazia!"})
     description:string
-
-    @IsString({message:"O id do criador do curso deve ser string!"})
-    @IsNotEmpty({message:"O id do criador do curso não pode ser vazio!"})
-    creatorId:string
 }

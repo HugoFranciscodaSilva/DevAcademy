@@ -4,11 +4,13 @@ import { UpdateCourseDto } from './dto/update-course.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { Course } from '../generated/prisma/client.js';
 
+export type CreateCourseInput = CreateCourseDto & { creatorId:string}
+
 @Injectable()
 export class CoursesService {
   constructor(private prisma:PrismaService){}
 
-  async createCourse(data:CreateCourseDto):Promise<Course>{
+  async createCourse(data:CreateCourseInput):Promise<Course>{
     return this.prisma.course.create({data})
   }
 
