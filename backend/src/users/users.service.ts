@@ -30,6 +30,9 @@ export class UsersService {
         name:true,
         email:true,
         role:true
+      },
+      orderBy:{
+        createAt:'asc'
       }
     })
   }

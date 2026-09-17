@@ -13,7 +13,7 @@ export class ModulesService {
   }
 
   async getAllModules():Promise<Module[]>{
-    return this.prisma.module.findMany()
+    return this.prisma.module.findMany({orderBy:{createAt:'asc'}})
   }
 
   async getModuleById(id:string):Promise<Module>{

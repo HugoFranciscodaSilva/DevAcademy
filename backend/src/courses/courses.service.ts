@@ -13,7 +13,7 @@ export class CoursesService {
   }
 
   async getAllCourses():Promise<Course[]>{
-    return this.prisma.course.findMany()
+    return this.prisma.course.findMany({orderBy:{createAt:'asc'}})
   }
 
   async getCourseById(id:string):Promise<Course>{

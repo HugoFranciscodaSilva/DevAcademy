@@ -13,7 +13,7 @@ export class LessonsService {
   }
 
   async getAllLessons():Promise<Lesson[]>{
-    return this.prisma.lesson.findMany()
+    return this.prisma.lesson.findMany({orderBy:{createAt:'asc'}})
   }
 
   async getLessonById(id:string):Promise<Lesson>{
