@@ -41,7 +41,7 @@ model Module{
   id String @id @default(uuid())
   name String
   courseId String
-  course Course @relation(references: [id],fields: [courseId])
+  course Course @relation(references: [id],fields: [courseId],onDelete: Cascade)
   Lessons Lesson[]
 
   @@map("modules")
@@ -54,7 +54,7 @@ model Lesson{
   urlVideo String
   urlThumbnail String
   moduleId String
-  module Module @relation(references: [id],fields: [moduleId])
+  module Module @relation(references: [id],fields: [moduleId],onDelete: Cascade) 
 
   @@map("lessons")
 }
@@ -62,10 +62,11 @@ model Lesson{
 model Enrollment{
   id String @id @default(uuid())
   courseId String
-  course Course @relation(fields: [courseId],references: [id])
+  course Course @relation(fields: [courseId],references: [id],onDelete: Cascade)
   studentId String
   student User @relation(fields: [studentId],references: [id])
 
+  @@unique([studentId,courseId])
   @@map("enrollments")
 }
 
