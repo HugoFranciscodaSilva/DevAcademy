@@ -1,5 +1,12 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator"
 
+export type AuthenticatedUser = {
+    id:string
+    name:string
+    email:string
+    role:string
+}
+
 export class AuthDTO{
     @IsEmail({},{message:"Insira um email válido!"})
     @IsNotEmpty({message:"O email não pode ser um campo vazio!"})

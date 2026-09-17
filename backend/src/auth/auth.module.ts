@@ -5,10 +5,11 @@ import { PrismaModule } from '../prisma/prisma.module.js';
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import 'dotenv/config'
+import { JwtStrategy } from './jwt-strategy.js';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService,JwtStrategy],
   imports:[
     PrismaModule,
     PassportModule.register({defaultStrategy:'jwt'}),
