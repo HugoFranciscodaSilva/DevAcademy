@@ -15,11 +15,35 @@ export class EnrollmentsService {
   }
 
   async getAllEnrollments():Promise<Enrollment[]>{
-    return this.prisma.enrollment.findMany({orderBy:{createAt:'asc'}})
+    return this.prisma.enrollment.findMany({
+      orderBy:{createAt:'asc'},
+      include:{
+        student:{
+          select:{
+            name:true
+          }
+        },
+        course:{
+          select:{
+            name:true
+          }
+        }
+      }
+    })
   }
 
   async getEnrollmentById(id:string):Promise<Enrollment>{
-    const found = await this.prisma.enrollment.findUnique({where:{id}})
+    const found = await this.prisma.enrollment.findUnique({where:{id},include:{
+        student:{
+          select:{
+            name:true
+          }
+        },
+        course:{
+          select:{
+            name:true
+          }
+        }}})
     if(!found) throw new NotFoundException(`Não foi encontrado uma inscrição com o id ${id}`)
     return found
   }
