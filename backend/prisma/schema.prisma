@@ -20,6 +20,7 @@ model User{
   createCourse Course[]
   enrollments Enrollment[] 
   role Role @default(Student)
+  createAt DateTime @default(now())
 
   @@map("users")
 }
@@ -33,6 +34,7 @@ model Course{
   creator User @relation(references: [id],fields: [creatorId])
   Modules Module[]
   enrollments Enrollment[]
+  createAt DateTime @default(now())
 
   @@map("courses")
 }
@@ -43,6 +45,7 @@ model Module{
   courseId String
   course Course @relation(references: [id],fields: [courseId],onDelete: Cascade)
   Lessons Lesson[]
+  createAt DateTime @default(now())
 
   @@map("modules")
 }
@@ -54,7 +57,8 @@ model Lesson{
   urlVideo String
   urlThumbnail String
   moduleId String
-  module Module @relation(references: [id],fields: [moduleId],onDelete: Cascade) 
+  module Module @relation(references: [id],fields: [moduleId],onDelete: Cascade)
+  createAt DateTime @default(now())
 
   @@map("lessons")
 }
@@ -65,6 +69,7 @@ model Enrollment{
   course Course @relation(fields: [courseId],references: [id],onDelete: Cascade)
   studentId String
   student User @relation(fields: [studentId],references: [id])
+  createAt DateTime @default(now())
 
   @@unique([studentId,courseId])
   @@map("enrollments")
